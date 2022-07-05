@@ -57,23 +57,95 @@ class MonoTest {
 //            .verify();
 //    }
 
-    @Test
-    fun monoSubscriberConsumerComplete() {
-        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
-        val Name = "Eduardo Cardoso"
-        val mono = Mono.just(Name)
-            .log()
-            .map(String::toUpperCase)
+//    @Test
+//    fun monoSubscriberConsumerComplete() {
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val Name = "Eduardo Cardoso"
+//        val mono = Mono.just(Name)
+//            .log()
+//            .map(String::toUpperCase)
+//
+//        mono.subscribe({ t -> logger.log(Level.INFO, "Teste ${t}") },
+//            Throwable::printStackTrace,
+//            {logger.log(Level.INFO, "FInalizaado")},
+//            Subscription::cancel)
+//
+//        StepVerifier.create(mono)
+//            .expectNext(Name.toUpperCase())
+//            .verifyComplete();
+//    }
 
-        mono.subscribe({ t -> logger.log(Level.INFO, "Teste ${t}") },
-            Throwable::printStackTrace,
-            {logger.log(Level.INFO, "FInalizaado")},
-            Subscription::cancel)
+//    @Test
+//    fun monoDoOnMethods(){
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val name = "Eduardo Cardoso"
+//        val mono = Mono.just(name)
+//            .log()
+//            .map(String::toUpperCase)
+//            .doOnSubscribe{subscription -> logger.log(Level.INFO, "Subscribed")}
+//            .doOnRequest{longNumber -> logger.log(Level.INFO, "Request Received, starting doing something...")}
+//            .doOnNext { it -> logger.log(Level.INFO, "Value is here, Executing doOnNext ${it}") }
+//            .flatMap{it -> Mono.empty<Void>()}
+//            .doOnNext { it -> logger.log(Level.INFO, "Value is here, Executing doOnNext ${it}") }
+//            .doOnSuccess { it -> logger.log(Level.INFO, "doOnSuccess executed ${it}")}
+//
+//        mono.subscribe({s -> logger.log(Level.INFO, "Value ${s}")},
+//            Throwable::printStackTrace,
+//            {logger.log(Level.INFO, "FINALIZADO")})
+//    }
 
-        StepVerifier.create(mono)
-            .expectNext(Name.toUpperCase())
-            .verifyComplete();
-    }
+//    @Test
+//    fun monoOnErrorReturn(){
+//        val error = Mono.error<String>(IllegalArgumentException("Illegal argument exception"))
+//            .onErrorReturn("EMPTY")
+//            .log()
+//
+//        StepVerifier.create(error)
+//            .expectNext("EMPTY")
+//            .verifyComplete()
+//    }
+
+//    @Test
+//    fun fluxSubscriberNumbers(){
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val flux = Flux.range(1, 5)
+//            .log()
+//
+//        flux.subscribe{it -> logger.log(Level.INFO, "Number ${it}")}
+//
+//        logger.log(Level.INFO,"---------------------------------------------------")
+//        StepVerifier.create(flux)
+//            .expectNext(1, 2 , 3, 4, 5)
+//            .verifyComplete()
+//    }
+
+//    @Test
+//    fun fluxSubscriberStrings(){
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val fluxString = Flux.just("Megumin", "Eduardo", "Louise", "Camille")
+//            .log()
+//
+//        fluxString.subscribe{it -> logger.log(Level.INFO, "Names: ${it}")}
+//
+//        logger.log(Level.INFO, "------------------------------------------------------")
+//        StepVerifier.create(fluxString)
+//            .expectNext("Megumin", "Eduardo", "Louise", "Camille")
+//            .verifyComplete()
+//    }
+
+//    @Test
+//    fun fluxSubscriberFromList(){
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val fluxList = Flux.fromIterable(listOf(1, 2, 3, 4, 5))
+//            .log()
+//
+//        fluxList.subscribe { it -> logger.log(Level.INFO, "Number ${it}")}
+//
+//        logger.log(Level.INFO, "-------------------------------------------------------")
+//        StepVerifier.create(fluxList)
+//            .expectNext(1, 2, 3, 4, 5)
+//            .verifyComplete()
+//    }
 
 //    @Test
 //    fun test2(){
