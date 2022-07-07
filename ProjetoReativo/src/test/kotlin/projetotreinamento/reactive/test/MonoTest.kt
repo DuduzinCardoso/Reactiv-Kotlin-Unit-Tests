@@ -127,7 +127,7 @@ class MonoTest {
 //
 //        fluxString.subscribe{it -> logger.log(Level.INFO, "Names: ${it}")}
 //
-//        logger.log(Level.INFO, "------------------------------------------------------")
+//        logger.log(Level.INFO, "----------------------------------------------------- -")
 //        StepVerifier.create(fluxString)
 //            .expectNext("Megumin", "Eduardo", "Louise", "Camille")
 //            .verifyComplete()
