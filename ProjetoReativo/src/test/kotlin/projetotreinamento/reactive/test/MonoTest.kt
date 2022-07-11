@@ -9,6 +9,7 @@ import reactor.test.StepVerifier
 import java.time.Duration
 import java.util.logging.Level
 import java.util.logging.Logger
+import javax.print.attribute.IntegerSyntax
 
 
 /**
@@ -49,8 +50,8 @@ class MonoTest {
 //        val mono = Mono.just(Name)
 //            .map { s -> throw RuntimeException("testing mono with error") }
 //
-//                mono.subscribe({ t -> logger.log(Level.INFO, "TESTE ") },
-//                    {t -> logger.log(Level.SEVERE, "NAME {}", t)});
+//                mono.subscribe({ t -> logger.log(Level.INFO, "TESTE ${t} ") },
+//                    {t -> logger.log(Level.SEVERE, "NAME ${t}")});
 //
 //        StepVerifier.create(mono)
 //            .expectErrorMatches(({ throwable -> throwable is RuntimeException }))
@@ -151,6 +152,7 @@ class MonoTest {
 //    fun test2(){
 //        val fluxAutoConnect = Flux.range(1,5)
 //            .log()
+//
 //            .delayElements(Duration.ofMillis(100))
 //            .publish()
 //            .autoConnect(2)
@@ -160,6 +162,44 @@ class MonoTest {
 //            .then(fluxAutoConnect::subscribe)
 //            .expectNext(1,2,3,4,5)
 //            .expectComplete()
+//            .verify()
+//    }
+
+//    @Test
+//    fun fluxSubscriberNumberError() {
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val flux = Flux.range(1, 5)
+//            .log()
+//            .doOnNext {
+//                if (it == 4){
+//                    throw IndexOutOfBoundsException("Index Error")
+//                }
+//            }
+//
+//        flux.subscribe(
+//            {i -> logger.log(Level.INFO, "Number ${i}")},
+//            Throwable::printStackTrace,
+//            {logger.log(Level.INFO, "DONE")},
+//        )
+//
+//       StepVerifier.create(flux)
+//           .expectNext(1,2,3)
+//           .expectError()
+//           .verify()
+//    }
+
+//    @Test
+//    fun fluxSubscriberNumberUglyBackpressure() {
+//        val logger = Logger.getLogger(MonoTest::class.java.canonicalName)
+//        val flux = Flux.range(1, 10)
+//            .log()
+//            .doOnNext {  }
+//
+//        flux.subscribe()
+//
+//        StepVerifier.create(flux)
+//            .expectNext(1,2,3,4,5,6,7,8,9,10)
+//            .expectError()
 //            .verify()
 //    }
 }
